@@ -1,10 +1,41 @@
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyDVhseT9pdr13GAgB5Z--fd6zO0hAcveHs",
+        authDomain: "ci53-group6.firebaseapp.com",
+        projectId: "ci53-group6",
+        storageBucket: "ci53-group6.appspot.com",
+        messagingSenderId: "561348211798",
+        appId: "1:561348211798:web:5738def1674f5d0f6037f7",
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"
+      integrity="sha512-nOQuvD9nKirvxDdvQ9OMqe2dgapbPB7vYAMrzJihw5m+aNcf0dX53m6YxM4LgA9u8e9eg9QX+/+mPu8kCNpV2A=="
+      crossorigin="anonymous"
+    ></script>
+    <script src="//unpkg.com/navigo@6"></script>
+  </head>
+  <body>
+
+    <input-wrapper label="Email" type="text" error="" value=""></input-wrapper>
+    <input-wrapper label="Password" type="password" error="" value=""></input-wrapper>
+    <input-wrapper label="Password Confirmation" type="password" error="" value=""></input-wrapper>
+
     <script src="./js/app.js" type="module"></script>
-</body>
+  </body>
 </html>
