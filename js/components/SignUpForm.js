@@ -4,14 +4,45 @@ import { validateEmail, validatePassword } from "../utilities.js";
 const $template = document.createElement("template");
 
 $template.innerHTML = /*html*/ `
+    <style>
+      #sign-up-form {
+        display: flex;
+        flex-direction: column;
+      }
+      #sign-up-form input-wrapper{
+        font-size: 24px;
+      }
+      #sign-up-form h2 {
+        font-size: 48px;
+        align-self: center;
+      }
+      #sign-up-form div {
+        align-self: center;
+        margin-top: 15px;
+      }
+      #sign-up-form button {
+        background-color: #3057A6;
+        color: #EBEAEF;
+        border-radius: 10px;
+        width: 150px;
+        min-width: 100px;
+        min-height: 50px;
+        text-align: center;
+        line-height: 50px;
+        font-size: 24px;
+        outline: 0;
+        align-self: center;
+        margin-top: 30px;
+     }
+    </style>
     <form id="sign-up-form">
         <h2>Sign Up</h2>
         <input-wrapper id="email" label="Email" type="email" error="" value=""></input-wrapper>
         <input-wrapper id="name" label="Name" type="text" error="" value=""></input-wrapper>
         <input-wrapper id="password" label="Password" type="password" error="" value=""></input-wrapper>
-        <input-wrapper id="password-confirmation" label="Password Confirmation" type="password" error="" value=""></input-wrapper>
+        <input-wrapper id="password-confirmation" label="Re-enter Password" type="password" error="" value=""></input-wrapper>
         <button>Sign Up</button>
-        <div>Have an account?<b><a href="#!/sign-in">Sign In</a></b></div>
+        <div>Have an account? <b><a href="#!/sign-in">Sign In</a></b></div>
     </form>
 `;
 
@@ -43,7 +74,7 @@ export default class SignUpForm extends HTMLElement {
           InputWrapper.validate(
             this.$password,
             (value) => validatePassword(value),
-            "Must have at least 8 characters, one letter and one number!"
+            "Length ≥8, has both letter and number!"
           )) &
         (InputWrapper.validate(this.$passwordConfirmation, (value) => value != "", "Re-enter your password!") &&
           InputWrapper.validate(this.$passwordConfirmation, (value) => value == password, "Password doesn't match!"));

@@ -1,22 +1,40 @@
 * {
   font-family: Arial, Helvetica, sans-serif;
-  background-color: #6495ED;
+  background-color: #6495ed;
+  color: #ebeaef;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 #app h1 {
   display: flex;
-  margin: auto;
-  font-size: 48pt;
-  height: 45%;
+  font-size: 64px;
   justify-content: center;
   align-items: flex-end;
-  padding-bottom: 5%;
-  color: #EBEAEF;
-  
 }
 
 #btn-container {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+#btn-container button {
+  width: 250px;
+  min-width: 100px;
+  min-height: 100px;
+  text-align: center;
+  line-height: 100px;
+  margin: 10px 50px;
+  font-size: 36px;
+  background-color: #3057a6;
+  border-radius: 15px;
+  outline: none;
+  cursor: pointer;
 }

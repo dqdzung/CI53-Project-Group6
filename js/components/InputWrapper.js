@@ -1,11 +1,34 @@
 const $template = document.createElement("template");
 
 $template.innerHTML = /*html*/ `
- <div id="input-wrapper">
+  <style>
+    #input-wrapper {
+      display: flex;
+      flex-direction: column;
+    }
+    #input-label { 
+      margin-top: 5px;
+    }
+    #input-main {
+      width: 350px;
+      height: 30px;
+      border-radius: 5px;
+      font-size: 18px;
+      border: 0;
+      background-color:  #ebeaef;
+    }
+    #input-error {
+      text-align: center;
+      margin-top: 5px;
+      color: red;
+      font-size: 16px;
+    }
+  </style>
+  <div id="input-wrapper">    
     <label id="input-label" for="#input-main"></label>
     <input id="input-main" type="text">
     <div id="input-error"></div>
- </div>
+  </div>
 `;
 
 export default class InputWrapper extends HTMLElement {
