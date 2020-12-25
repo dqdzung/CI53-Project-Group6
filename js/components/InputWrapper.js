@@ -40,12 +40,18 @@ export default class InputWrapper extends HTMLElement {
     }
   }
 
-  value(){
-      return this.$main.value;
+  value() {
+    return this.$main.value;
   }
 
   error(message) {
     this.setAttribute("error", message);
+  }
+
+  static clearInput() {
+    for (let argument of arguments) {
+      argument.setAttribute("value", "");
+    }
   }
 
   static validate($inputWrapper, condition, message) {

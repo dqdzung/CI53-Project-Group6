@@ -19,3 +19,18 @@ export function validatePassword(password) {
     const re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/; // Minimum 8 characters, at least one letter and one number;
     return re.test(String(password).toLowerCase());
 }
+
+// Save current user info into localStorage
+export function saveCurrentUser(user) {
+  localStorage.setItem("current-user", JSON.stringify(user));
+}
+
+// Get current user info from localStorage
+export function getCurrentUser() {
+  let result = localStorage.getItem("current-user");
+
+  if (result) {
+    return JSON.parse(result);
+  }
+  return null;
+}

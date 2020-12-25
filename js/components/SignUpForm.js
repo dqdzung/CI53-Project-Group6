@@ -11,7 +11,7 @@ $template.innerHTML = /*html*/ `
         <input-wrapper id="password" label="Password" type="password" error="" value=""></input-wrapper>
         <input-wrapper id="password-confirmation" label="Password Confirmation" type="password" error="" value=""></input-wrapper>
         <button>Sign Up</button>
-        <div>Have an account?<b><a href="">Sign In</a></b></div>
+        <div>Have an account?<b><a href="#!/sign-in">Sign In</a></b></div>
     </form>
 `;
 
@@ -61,7 +61,8 @@ export default class SignUpForm extends HTMLElement {
               password: CryptoJS.MD5(password).toString(),
             });
           alert("Sign Up Completed!");
-          console.log("Success!");
+          console.log("Registered!");
+          InputWrapper.clearInput(this.$email, this.$name, this.$password, this.$passwordConfirmation);
         } else {
           alert("Email already been used!");
           console.log("Failed!");
