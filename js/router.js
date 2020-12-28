@@ -15,4 +15,10 @@ router
   })
   .resolve();
 
+router
+  .on("/admin-page", function () {
+    document.getElementById("app").innerHTML = "<admin-page></admin-page>";
+  })
+  .resolve();
+
 window.router = router;

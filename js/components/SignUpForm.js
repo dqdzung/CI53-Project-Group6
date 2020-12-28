@@ -69,7 +69,8 @@ export default class SignUpForm extends HTMLElement {
       let isPassed =
         (InputWrapper.validate(this.$email, (value) => value != "", "Please enter a valid email!") &&
           InputWrapper.validate(this.$email, (value) => validateEmail(value), "Invalid email!")) &
-        InputWrapper.validate(this.$name, (value) => value != "", "Please enter a name!") &
+        (InputWrapper.validate(this.$name, (value) => value != "", "Please enter a name!") &&
+          InputWrapper.validate(this.$name, (value) => value.toLowerCase() != "admin", "Name is not allowed!")) &
         (InputWrapper.validate(this.$password, (value) => value != "", "Please enter a password!") &&
           InputWrapper.validate(
             this.$password,

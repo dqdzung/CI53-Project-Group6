@@ -81,8 +81,11 @@ export default class SignInForm extends HTMLElement {
         } else {
           alert("Signing In!");
           saveCurrentUser(getDataFromDoc(result.docs[0]));
-          console.log("Logged In", getCurrentUser());
-          //   router.navigate("/main");
+          const currentUser = getCurrentUser();
+          console.log("Logged In", currentUser);
+          if (currentUser.name == "admin") {
+            router.navigate("/admin-page");
+          }
         }
         InputWrapper.clearInput(this.$email, this.$password);
       }
