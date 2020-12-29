@@ -27,29 +27,17 @@ $template.innerHTML = /*html*/ `
         border-radius: 15px;
         outline: none;
         cursor: pointer;
-        }
+        }      
 
-        #profile {
-            position: absolute;
-            top: 30px;
-            right: 30px;
-            font-size: 36px;
-        }
-        
-        #sign-out {
-            font-size: 28px;
-            cursor: pointer;
-        }
     </style>
     <div id="admin">
-        <div id="profile">
-        Admin, <span id="sign-out"><b><u>Sign Out!</u></b></span>
-        </div>
-        <div>
-            <h1>Management</h1>
-            <div id="btn-container">
-                <a href="#!/staff-mngmnt"><button>Staff</button></a>
-                <a href="#!/storage-mngmnt"><button>Storage Unit</button></a>
+        <profile-link name="Admin"></profile-link>
+    </div>
+    <div>
+        <h1>Management</h1>
+        <div id="btn-container">
+            <a href="#!/staff-mngmnt"><button>Staff</button></a>
+            <a href="#!/storage-mngmnt"><button>Storage Unit</button></a>
         </div>
     </div>
 `;
@@ -61,14 +49,6 @@ export default class AdminPage extends HTMLElement {
     this.shadowRoot.appendChild($template.content.cloneNode(true));
 
     this.$btnContainer = this.shadowRoot.getElementById("btn-container");
-    this.$signOutLink = this.shadowRoot.getElementById("sign-out");
-  }
-
-  connectedCallback() {
-      this.$signOutLink.onclick = () => {
-          localStorage.clear();
-          router.navigate("/sign-in");
-      }
   }
 }
 

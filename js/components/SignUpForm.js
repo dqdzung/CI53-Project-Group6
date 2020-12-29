@@ -92,9 +92,11 @@ export default class SignUpForm extends HTMLElement {
               email: email,
               password: CryptoJS.MD5(password).toString(),
             });
-          alert("Sign Up Completed!");
           console.log("Registered!");
           InputWrapper.clearInput(this.$email, this.$name, this.$password, this.$passwordConfirmation);
+          if (confirm("Sign Up Completed! Do you want to sign in?")) {
+            router.navigate("/sign-in");
+          } 
         } else {
           alert("Email already been used!");
           console.log("Failed!");
