@@ -19,21 +19,24 @@ $template.innerHTML = /*html*/ `
 `;
 
 export default class StaffContainer extends HTMLElement {
-  constructor() {
+  constructor(data) {
     super();
     this.attachShadow({ mode: "open" });
     this.shadowRoot.appendChild($template.content.cloneNode(true));
 
     this.$container = this.shadowRoot.getElementById("container");
+    
+    this.setAttribute("data", JSON.stringify(data));
+    
   }
 
   static get observedAttributes() {
-    return ["name"];
+    return ["data"];
   }
 
   attributeChangedCallback(attrName, oldValue, newValue) {
-    if (attrName == "name") {
-      this.$container.innerHTML = newValue;
+    if (attrName == "data") {      
+      this.$container.innerHTML = JSON.parse(newValue).name;
     }
   }
 }
