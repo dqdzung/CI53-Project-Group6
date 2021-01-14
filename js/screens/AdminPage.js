@@ -6,7 +6,12 @@ $template.innerHTML = /*html*/ `
         display: flex;
         font-size: 64px;
         justify-content: center;
-        align-items: flex-end;
+        }
+
+        profile-link {
+            position: absolute;
+            top: 30px;
+            right: 30px;
         }
 
         #btn-container {
@@ -29,10 +34,8 @@ $template.innerHTML = /*html*/ `
         cursor: pointer;
         }      
 
-    </style>
-    <div id="admin">
-        <profile-link name="Admin"></profile-link>
-    </div>
+    </style>    
+    <profile-link name="Admin"></profile-link>    
     <div>
         <h1>Management</h1>
         <div id="btn-container">

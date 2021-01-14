@@ -5,9 +5,6 @@ const $template = document.createElement("template");
 $template.innerHTML = /*html*/ `
     <style>
         #profile-container {
-            position: absolute;
-            top: 30px;
-            right: 30px;
             font-size: 36px;
         }
 
