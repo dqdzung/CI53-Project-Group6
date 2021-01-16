@@ -1,7 +1,11 @@
 import StaffDetailForm from "./components/StaffDetailForm.js";
 import UserProfile from "./components/UserProfile.js";
 import UserPage from "./screens/UserPage.js";
-import { getCurrentUser, getDataFromDocs, getDataFromDoc } from "./utilities.js";
+import {
+  getCurrentUser,
+  getDataFromDocs,
+  getDataFromDoc,
+} from "./utilities.js";
 
 var root = null;
 var useHash = true; // Defaults to: false
@@ -18,6 +22,7 @@ router
     <a href="#!/sign-up"><button>Sign Up</button></a>
     <a href="#!/sign-in"><button>Sign In</button></a>
   </div>
+  <div id="about">About</div>
 `;
   })
   .resolve();
@@ -96,12 +101,23 @@ router
     const currentUser = getCurrentUser();
     if (currentUser) {
       $app.innerHTML = "";
-      let result = await firebase.firestore().collection("users").doc(param.id).get();
+      let result = await firebase
+        .firestore()
+        .collection("users")
+        .doc(param.id)
+        .get();
       const user = result.data();
       const $userProfile = new UserProfile(user);
       $app.appendChild($userProfile);
     }
   })
   .resolve();
+
+const $about = document.getElementById("about");
+$about.onclick = () => {
+  alert(`A CI53 Project by Group 6:
+    - ĐQD
+    - HĐ`);
+};
 
 window.router = router;

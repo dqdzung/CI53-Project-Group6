@@ -38,3 +38,13 @@
   outline: none;
   cursor: pointer;
 }
+
+#about {
+  position: fixed;
+  bottom: 5px;
+}
+
+#about:hover{
+  font-weight: bold;
+  cursor: pointer;
+}
