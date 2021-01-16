@@ -1,4 +1,4 @@
-import { getCurrentUser } from "../utilities.js";
+import { getCurrentUser, saveCurrentUser } from "../utilities.js";
 import InputWrapper from "./InputWrapper.js";
 
 const $template = document.createElement("template");
@@ -120,8 +120,7 @@ export default class UserProfile extends HTMLElement {
     };
 
     this.$editBtn.onclick = () => {
-      const data = getCurrentUser();      
-      console.log(data);
+      const data = getCurrentUser();
       this.$content.innerHTML = /*html*/ `
       <input-wrapper label="Name" type="text" error="" value="${data.name}"></input-wrapper>
       <input-wrapper label="Age" type="text" error="" value="${data.age}"></input-wrapper>
@@ -136,16 +135,16 @@ export default class UserProfile extends HTMLElement {
         data.name = $inputWrapperList[0].value();
         data.age = $inputWrapperList[1].value();
         data.address = $inputWrapperList[2].value();
-        // await firebase
-        //   .firestore()
-        //   .collection("users")
-        //   .doc(data.id)
-        //   .set(data)
-        //   .then(function () {
-        //     console.log("Document successfully written!");
-        //   });
-        // console.log(data);
-        // // location.reload();
+        await firebase
+          .firestore()
+          .collection("users")
+          .doc(data.id)
+          .set(data)
+          .then(function () {
+            console.log("Document successfully written!");
+          });
+        saveCurrentUser(data);
+        location.reload();
       };
     };
   }

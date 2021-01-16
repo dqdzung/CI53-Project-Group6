@@ -27,15 +27,6 @@ $template.innerHTML = /*html*/ `
           justify-content: center;  
         }
 
-        #search-btn {
-          height: 30px;
-          border-radius: 5px;
-          margin-left: 10px;
-          background-color: #3057a6;
-          color: #ebeaef;
-          outline: none;
-        }
-
         staff-wrapper {
           height: 80px;          
           margin: 10px;
@@ -58,6 +49,11 @@ $template.innerHTML = /*html*/ `
           cursor: pointer;
           font-weight: bold;          
         }
+
+        input-wrapper {
+          position: relative;
+          top: -25px;
+        }
     </style>
 
     <span id="back-link">Back</span>
@@ -66,7 +62,7 @@ $template.innerHTML = /*html*/ `
     <div id="content">
       <div id="search-container">
         <input-wrapper></input-wrapper>
-        <button id="search-btn">Search</button>
+        
       </div>         
       <div id="staff-container">
       </div>   
@@ -81,7 +77,7 @@ export default class StaffManagement extends HTMLElement {
 
     this.$staffContainer = this.shadowRoot.getElementById("staff-container");
     this.$addStaffBtn = this.shadowRoot.getElementById("add-staff-btn");
-    this.$searchBtn = this.shadowRoot.getElementById("search-btn");
+    
     this.$inputWrapper = this.shadowRoot.querySelector("input-wrapper");
     this.$backLink = this.shadowRoot.getElementById("back-link");
   }
@@ -90,22 +86,15 @@ export default class StaffManagement extends HTMLElement {
     let staffData = await this.getStaffData();
     this.renderStaff(staffData);
 
-    this.$searchBtn.onclick = () => {
-      const searchValue = this.$inputWrapper.value().toLowerCase();
+    this.$inputWrapper.onkeyup = (e) => {
+      const filterValue = this.$inputWrapper.value().toLowerCase();
       const results = [];
       for (let staff of staffData) {
-        if (staff.name.toLowerCase().includes(searchValue)) {
+        if (staff.name.toLowerCase().includes(filterValue)) {
           results.push(staff);
         }
       }
-      this.renderStaff(results);
-      InputWrapper.clearInput(this.$inputWrapper);
-    };
-
-    this.$inputWrapper.onkeyup = (e) => {
-      if (e.key == "Enter") {
-        this.$searchBtn.click();
-      }
+      this.renderStaff(results);      
     };
 
     this.$backLink.onclick = () => {
