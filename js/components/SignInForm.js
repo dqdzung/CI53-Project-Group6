@@ -1,5 +1,11 @@
 import InputWrapper from "./InputWrapper.js";
-import { getDataFromDoc, validateEmail, validatePassword, saveCurrentUser, getCurrentUser } from "../utilities.js";
+import {
+  getDataFromDoc,
+  validateEmail,
+  validatePassword,
+  saveCurrentUser,
+  getCurrentUser,
+} from "../utilities.js";
 
 const $template = document.createElement("template");
 
@@ -28,7 +34,7 @@ $template.innerHTML = /*html*/ `
       min-width: 100px;
       min-height: 50px;
       text-align: center;
-      line-height: 50px;
+      
       font-size: 24px;
       outline: 0;
       align-self: center;
@@ -54,6 +60,7 @@ export default class SignInForm extends HTMLElement {
     this.$form = this.shadowRoot.getElementById("sign-in-form");
     this.$email = this.shadowRoot.getElementById("email");
     this.$password = this.shadowRoot.getElementById("password");
+    this.$button = this.shadowRoot.querySelector("button");
   }
 
   connectedCallback() {
@@ -63,10 +70,26 @@ export default class SignInForm extends HTMLElement {
       let password = this.$password.value();
 
       let isPassed =
-        (InputWrapper.validate(this.$email, (value) => value != "", "Enter a valid email!") &&
-          InputWrapper.validate(this.$email, (value) => validateEmail(value), "Invalid email!")) &
-        (InputWrapper.validate(this.$password, (value) => value != "", "Enter a valid password!") &&
-          InputWrapper.validate(this.$password, (value) => validatePassword(value), "Invalid password!"));
+        (InputWrapper.validate(
+          this.$email,
+          (value) => value != "",
+          "Enter a valid email!"
+        ) &&
+          InputWrapper.validate(
+            this.$email,
+            (value) => validateEmail(value),
+            "Invalid email!"
+          )) &
+        (InputWrapper.validate(
+          this.$password,
+          (value) => value != "",
+          "Enter a valid password!"
+        ) &&
+          InputWrapper.validate(
+            this.$password,
+            (value) => validatePassword(value),
+            "Invalid password!"
+          ));
 
       if (isPassed) {
         let result = await firebase
@@ -85,9 +108,21 @@ export default class SignInForm extends HTMLElement {
           console.log("Logged In", currentUser);
           if (currentUser.name == "admin") {
             router.navigate("/admin-page");
-          }
+          } else router.navigate("/user-page");
         }
         InputWrapper.clearInput(this.$email, this.$password);
+      }
+    };
+
+    this.$email.onkeyup = (e) => {
+      if (e.key == "Enter") {
+        this.$button.click();
+      }
+    };
+
+    this.$password.onkeyup = (e) => {
+      if (e.key == "Enter") {
+        this.$button.click();
       }
     };
   }

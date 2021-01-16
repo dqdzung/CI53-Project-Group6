@@ -28,7 +28,7 @@ $template.innerHTML = /*html*/ `
         min-width: 100px;
         min-height: 50px;
         text-align: center;
-        line-height: 50px;
+        
         font-size: 24px;
         outline: 0;
         align-self: center;
@@ -56,7 +56,9 @@ export default class SignUpForm extends HTMLElement {
     this.$email = this.shadowRoot.getElementById("email");
     this.$name = this.shadowRoot.getElementById("name");
     this.$password = this.shadowRoot.getElementById("password");
-    this.$passwordConfirmation = this.shadowRoot.getElementById("password-confirmation");
+    this.$passwordConfirmation = this.shadowRoot.getElementById(
+      "password-confirmation"
+    );
   }
 
   connectedCallback() {
@@ -67,21 +69,53 @@ export default class SignUpForm extends HTMLElement {
       let password = this.$password.value();
       let passwordConfirmation = this.$passwordConfirmation.value();
       let isPassed =
-        (InputWrapper.validate(this.$email, (value) => value != "", "Please enter a valid email!") &&
-          InputWrapper.validate(this.$email, (value) => validateEmail(value), "Invalid email!")) &
-        (InputWrapper.validate(this.$name, (value) => value != "", "Please enter a name!") &&
-          InputWrapper.validate(this.$name, (value) => value.toLowerCase() != "admin", "Name is not allowed!")) &
-        (InputWrapper.validate(this.$password, (value) => value != "", "Please enter a password!") &&
+        (InputWrapper.validate(
+          this.$email,
+          (value) => value != "",
+          "Please enter a valid email!"
+        ) &&
+          InputWrapper.validate(
+            this.$email,
+            (value) => validateEmail(value),
+            "Invalid email!"
+          )) &
+        (InputWrapper.validate(
+          this.$name,
+          (value) => value != "",
+          "Please enter a name!"
+        ) &&
+          InputWrapper.validate(
+            this.$name,
+            (value) => value.toLowerCase() != "admin",
+            "Name is not allowed!"
+          )) &
+        (InputWrapper.validate(
+          this.$password,
+          (value) => value != "",
+          "Please enter a password!"
+        ) &&
           InputWrapper.validate(
             this.$password,
             (value) => validatePassword(value),
             "Length ≥8, has both letter and number!"
           )) &
-        (InputWrapper.validate(this.$passwordConfirmation, (value) => value != "", "Re-enter your password!") &&
-          InputWrapper.validate(this.$passwordConfirmation, (value) => value == password, "Password doesn't match!"));
+        (InputWrapper.validate(
+          this.$passwordConfirmation,
+          (value) => value != "",
+          "Re-enter your password!"
+        ) &&
+          InputWrapper.validate(
+            this.$passwordConfirmation,
+            (value) => value == password,
+            "Password doesn't match!"
+          ));
 
       if (isPassed) {
-        let result = await firebase.firestore().collection("users").where("email", "==", email).get();
+        let result = await firebase
+          .firestore()
+          .collection("users")
+          .where("email", "==", email)
+          .get();
 
         if (result.empty) {
           firebase
@@ -91,12 +125,21 @@ export default class SignUpForm extends HTMLElement {
               name: name,
               email: email,
               password: CryptoJS.MD5(password).toString(),
+              age: "No info",
+              address: "No info",
+              manageStorage: [],
             });
+
           console.log("Registered!");
-          InputWrapper.clearInput(this.$email, this.$name, this.$password, this.$passwordConfirmation);
+          InputWrapper.clearInput(
+            this.$email,
+            this.$name,
+            this.$password,
+            this.$passwordConfirmation
+          );
           if (confirm("Sign Up Completed! Do you want to sign in?")) {
             router.navigate("/sign-in");
-          } 
+          }
         } else {
           alert("Email already been used!");
           console.log("Failed!");

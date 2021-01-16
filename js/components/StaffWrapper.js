@@ -5,8 +5,9 @@ const $template = document.createElement("template");
 $template.innerHTML = /*html*/ `
     <style>
         #staff {
-            width: 200px;
-            height: 75px;
+            min-width: 200px;
+            max-width: 300px;
+            min-height: 60px;
             background-color: #3057a6;
             display: flex;
             align-items: center;
@@ -14,10 +15,7 @@ $template.innerHTML = /*html*/ `
             cursor: pointer;            
             border-radius: 10px;
             font-size: 24px;
-        }
-
-        staff-detail-form {
-          display: none;
+            padding: 10px;            
         }
     </style>
     <div id="staff">

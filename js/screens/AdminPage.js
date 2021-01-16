@@ -25,13 +25,14 @@ $template.innerHTML = /*html*/ `
         min-width: 100px;
         min-height: 100px;
         text-align: center;
-        line-height: 100px;
+        
         margin: 10px 50px;
         font-size: 36px;
         background-color: #3057a6;
         border-radius: 15px;
         outline: none;
         cursor: pointer;
+        color: #ebeaef;
         }      
 
     </style>    
