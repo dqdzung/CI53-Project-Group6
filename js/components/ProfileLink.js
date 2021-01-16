@@ -45,7 +45,7 @@ export default class ProfileLink extends HTMLElement {
     this.$signOutLink.onclick = () => {
       if (confirm("Signing out?")) {
         localStorage.clear();
-        router.navigate("/sign-in");
+        router.navigate("/");
       }
     };
   }

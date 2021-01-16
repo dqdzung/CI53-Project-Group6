@@ -35,9 +35,21 @@ $template.innerHTML = /*html*/ `
         outline: none;
         cursor: pointer;
         color: #ebeaef;
-        }   
+        }
+        #back-link{
+          font-size: 28px;
+          position: absolute;
+          top: 30px;
+          left: 30px;
+        }
+        
+        #back-link:hover {
+          cursor: pointer;
+          font-weight: bold;  
+        }
 
-    </style>    
+    </style>
+    <span id="back-link">Back</span>    
     <profile-link></profile-link>    
     <h1 id="header">Hello User!</h1>
     <div id="btn-container">
@@ -55,6 +67,7 @@ export default class UserPage extends HTMLElement {
     this.$header = this.shadowRoot.getElementById("header");
     this.$profileBtn = this.shadowRoot.getElementById("profile-btn");
     this.$profileLink = this.querySelector("profile-link");
+    this.$backLink = this.shadowRoot.getElementById("back-link")
 
     this.setAttribute("data", JSON.stringify(data));
   }
@@ -74,6 +87,10 @@ export default class UserPage extends HTMLElement {
       const currentUser = getCurrentUser();
       router.navigate("/profile/" + currentUser.id);
     };
+
+    this.$backLink.onclick = () => {        
+        router.navigate("/");
+      };
   }
 }
 
