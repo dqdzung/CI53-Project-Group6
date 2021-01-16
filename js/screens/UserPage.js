@@ -54,25 +54,26 @@ export default class UserPage extends HTMLElement {
 
     this.$header = this.shadowRoot.getElementById("header");
     this.$profileBtn = this.shadowRoot.getElementById("profile-btn");
+    this.$profileLink = this.querySelector("profile-link");
 
     this.setAttribute("data", JSON.stringify(data));
   }
 
   static get observedAttributes() {
-      return ["data"];
+    return ["data"];
   }
 
   attributeChangedCallback(attrName, oldValue, newValue) {
-      if (attrName == "data") {
-          this.$header.innerHTML = `Hello ${(JSON.parse(newValue)).name}!`
-      }
+    if (attrName == "data") {
+      this.$header.innerHTML = `Hello, ${JSON.parse(newValue).name}!`;
+    }
   }
 
   connectedCallback() {
-      this.$profileBtn.onclick = () => {
-          const currentUser = getCurrentUser();          
-          router.navigate("/profile/" + currentUser.id);
-      }
+    this.$profileBtn.onclick = () => {
+      const currentUser = getCurrentUser();
+      router.navigate("/profile/" + currentUser.id);
+    };
   }
 }
 
