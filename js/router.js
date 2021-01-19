@@ -24,6 +24,12 @@ router
   </div>
   <div id="about">About</div>
 `;
+    const $about = document.getElementById("about");
+    $about.onclick = () => {
+      alert(`A CI53 Project by Group 6:
+    - ĐQD
+    - HĐ`);
+    };
   })
   .resolve();
 
@@ -113,11 +119,22 @@ router
   })
   .resolve();
 
-const $about = document.getElementById("about");
-$about.onclick = () => {
-  alert(`A CI53 Project by Group 6:
-    - ĐQD
-    - HĐ`);
-};
+router
+  .on("/storage-mngmnt", function () {
+    const currentUser = getCurrentUser();
+    if (currentUser && currentUser.name == "admin") {
+      $app.innerHTML = "";
+      $app.innerHTML = "<warehouse-list></warehouse-list>";
+      console.log("Bạn đang ở trang list kho");
+    } else router.navigate("/sign-in");
+  })
+  .resolve();
+
+router
+  .on("/add-warehouse-form", function () {
+    $app.innerHTML = "<add-warehouse-form></add-warehouse-form>";
+    console.log("Bạn đang ở trang thêm kho");
+  })
+  .resolve();
 
 window.router = router;

@@ -209,9 +209,11 @@ export default class StaffDetailForm extends HTMLElement {
       let manageStorage = data.manageStorage;
       let storageList = await this.getStorageList(manageStorage);
       let arr = [];
-      for (let storage of storageList) {
-        arr.push(storage.name);
-      }
+      if (storageList.length > 0) {
+        for (let storage of storageList) {
+          arr.push(storage.name);
+        }
+      } else arr = "Unassigned";
       this.$content.innerHTML = /*html*/ `
                 <table style="width: 100%">
                     <tr>

@@ -3,9 +3,8 @@ import InputWrapper from "./InputWrapper.js";
 const $template = document.createElement('template');
 $template.innerHTML =  /*html*/`
     <form id="add-warehouse-form">
-        <input-wrapper id="warehouse-name" Label="Name Warehouse" type="text" error="" value=""></input-wrapper>
-        <input-wrapper id="product" Label="Product" type="text" error="" value=""></input-wrapper>
-        <input-wrapper id="staff" Label="Staff" type="text" error="" value=""></input-wrapper>
+        <input-wrapper id="warehouse-name" Label="Storage name" type="text" error="" value=""></input-wrapper>
+        <input-wrapper id="product" Label="Content" type="text" error="" value=""></input-wrapper>        
         <button id="add-warehouse-btn">OK</button>
     </form>
 `;
@@ -19,7 +18,7 @@ export default class AddWarehouseForm extends HTMLElement {
         this.$form = this.shadowRoot.getElementById("add-warehouse-form");
         this.$warehouseName = this.shadowRoot.getElementById("warehouse-name");
         this.$product = this.shadowRoot.getElementById("product");
-        this.$staff = this.shadowRoot.getElementById("staff");
+        
 
     }
 
@@ -28,30 +27,35 @@ export default class AddWarehouseForm extends HTMLElement {
             event.preventDefault();  
                 let warehouseName = this.$warehouseName.value();
                 let product = this.$product.value();
-                let staff = this.$staff.value();
+                
 
                 let isPassed =
-                InputWrapper.validate(this.$warehouseName, (value) => value != '', "Nhập vào tên kho") &
-                InputWrapper.validate(this.$product, (value) => value != '', "Nhập vào tên sản phẩm") &
-                InputWrapper.validate(this.$staff, (value) => value != '', "Nhập vào tên người quản lý");
+                InputWrapper.validate(this.$warehouseName, (value) => value != '', "Insert a name for the storage") &
+                InputWrapper.validate(this.$product, (value) => value != '', "Insert storage's content");
+                
 
-                console.log(isPassed);
-            let x = confirm("You have saved on confirmation?")
-                if(x == true){
+                
+            let confirmation = confirm("Are you sure you want to create this storage?")
+                if(confirmation){
                     if(isPassed) {
                         let result = await firebase
                         .firestore()
                         .collection('storage')
                         .add({
-                            warehouseName: warehouseName,
-                            product: product,
-                            staff: staff
+                            name: warehouseName,
+                            content: product,                            
                         });
-                        router.navigate('/warehouse-list');
+                        location.reload();
                     }
                     else {
 
                     }
+                }
+            }
+            this.$product.onkeyup = (e) => {
+                if (e.key == "Enter") {
+                    console.log(e.key);
+                    this.$form.onsubmit(e);
                 }
             }
         }
